@@ -2,7 +2,8 @@
 import streamlit as st
 import google.generativeai as genai
 
-genai.configure(api_key="YOUR_GEMINI_API_KEY") 
+genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
+
 
 system_instruction = """
 You are an expert Agriculture Assistant named AgriNexus Tech.
@@ -19,7 +20,7 @@ if st.button("जवाब पाएं"):
         model = genai.GenerativeModel(
             model_name="gemini-1.5-flash",
             system_instruction=system_instruction,
-            tools=[{"google_search": {}}]
+            
         )
         response = model.generate_content(user_input)
         st.success(response.text)
